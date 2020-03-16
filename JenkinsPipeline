@@ -3,9 +3,33 @@ pipeline
 	agent any
 	stages
 	{
-		stage('Build Project'){bat "mvn clean"}
-		stage('Unit Test Coverage'){echo "unit test coverage"}
-		stage('DockerIntigration'){"mvn test"}
-		stage('Smoke Test Scripts'){echo "unit test coverage"}
+		stage('Build Project')
+		{
+			steps
+			{
+				bat "mvn clean"
+			}
+		}
+		stage('Unit Test Coverage')
+		{
+			steps
+			{
+				echo 'unit test coverage'
+			}
+		}
+		stage('DockerIntigration')
+		{
+			steps
+			{
+				bat "mvn test"
+			}
+		}
+		stage('Smoke Test Scripts')
+		{
+			steps
+			{
+				echo "unit test coverage"
+			}
+		}
 	}
 }
