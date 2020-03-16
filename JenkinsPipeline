@@ -1,0 +1,14 @@
+pipeline
+{
+	agent any
+	stages
+	{
+		stage('Build Project'){}
+		stage('Unit Test Coverage')
+		stage('DockerIntigration')
+		stage('Smoke Test Scripts')
+	}
+
+
+
+}
