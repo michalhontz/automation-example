@@ -1,8 +1,14 @@
 package remoteTesting.dockerValidation;
 
+import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.DataProvider;
@@ -10,6 +16,10 @@ import org.testng.annotations.Test;
 
 public class chromeTest3 extends BaseTest{
 
+	// Data should come from outside of the test
+	String fileLocation = "C:\\Development\\eclipse-workspace\\dockerValidation\\Data.xlsx";
+	DataFormatter formatter = new DataFormatter();
+	
 	@Test
 	 public void test3() throws MalformedURLException {
 		 
@@ -26,9 +36,25 @@ public class chromeTest3 extends BaseTest{
 		System.out.println(greeting + ", " + communication + ", " + number);
 	}
 	
-	@DataProvider (name = "data")
-	public Object[][] getData() {
-		Object[][] data = {{"hi", "more text", 7},{"see ya", "the new message", 87},{"whats up?", "say hey you!!", 99}};
+	@DataProvider(name = "data")
+	public Object[][] getData() throws Exception {
+
+		FileInputStream fis = new FileInputStream(fileLocation);
+		XSSFWorkbook wb = new XSSFWorkbook(fis);
+		XSSFSheet sheet = wb.getSheetAt(2);
+		int rowCount = sheet.getPhysicalNumberOfRows();
+		XSSFRow row = sheet.getRow(0);
+		int columnCount = row.getLastCellNum();
+
+		Object data[][] = new Object[rowCount - 1][columnCount];
+
+		for (int i = 0; i < rowCount; i++) {
+			row = sheet.getRow(i + 1);
+			for (int j = 0; j < columnCount; j++) {
+				XSSFCell cell = row.getCell(j);
+				data[i][j] = formatter.formatCellValue(cell);
+			}
+		}
 		return data;
 	}
 }
