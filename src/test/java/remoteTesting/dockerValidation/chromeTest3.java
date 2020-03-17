@@ -48,7 +48,7 @@ public class chromeTest3 extends BaseTest{
 
 		Object data[][] = new Object[rowCount - 1][columnCount];
 
-		for (int i = 0; i < rowCount; i++) {
+		for (int i = 0; i < rowCount - 1; i++) {
 			row = sheet.getRow(i + 1);
 			for (int j = 0; j < columnCount; j++) {
 				XSSFCell cell = row.getCell(j);
