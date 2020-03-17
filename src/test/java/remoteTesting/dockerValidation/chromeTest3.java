@@ -32,7 +32,7 @@ public class chromeTest3 extends BaseTest{
 	 }
 	
 	@Test (dataProvider = "data")
-	public void testData(String greeting, String communication, int number) {
+	public void testData(String greeting, String communication, String number) {
 		System.out.println(greeting + ", " + communication + ", " + number);
 	}
 	
